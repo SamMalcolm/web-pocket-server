@@ -1,0 +1,39 @@
+<h1>Games</h1>
+<a href="/games/new">Add New Games</a>
+<ul>
+	<%for (let i=0; i < games.length; i++) { %>
+		<li>
+			<div>
+				<h2>Game</h2>
+				<h2>
+					<%= games[i].s[0].name %> Vs. <%= games[i].s[1].name %>
+				</h2>
+				<i>ID: <%= games[i].id %></i>
+				<a href="/games/<%= games[i].id %>/remote">Referees Remote</a>
+				<a href="/games/<%= games[i].id %>/scoreboard">Scoreboard</a>
+				<a href="/games/<%= games[i].id %>/overlay">OBS Overlay</a>
+				<button class="deleteGame" data-game="<%=games[i].id %>">Delete</button>
+			</div>
+		</li>
+
+		<%} %>
+</ul>
+<script>
+	function deleteGame(id) {
+		return new Promise(r => {
+			var xhr = new XMLHttpRequest();
+			xhr.open('DELETE', '/games/' + id);
+			xhr.send();
+			r();
+		});
+	}
+
+	//get all buttons with the class deleteGame and add a click eevent listener to run the deleteGame function
+	var buttons = document.getElementsByClassName('deleteGame');
+	for (var i = 0; i < buttons.length; i++) {
+		buttons[i].addEventListener('click', async function (e) {
+			deleteGame(e.target.getAttribute('data-game')).then(() => (window.location.href = window.location.href))
+		});
+	}
+
+</script>
