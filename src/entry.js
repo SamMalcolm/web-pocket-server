@@ -3,6 +3,8 @@ var socket = io('/game');
 var room = /games\/.+\//igm.exec(window.location.href)[0];
 room = room.slice(6, -1);
 
+import './overlay.scss';
+
 socket.on('connect', () => {
 	console.log("connected");
 	socket.emit('join', { room: room })
@@ -40,12 +42,15 @@ socket.on('connect', () => {
 			document.querySelector("*[data-player-2-name]").innerHTML = data.s[1].name;
 		}
 
-		// if (document.querySelector("data-player-1-framesWon")) {
-		// 	document.querySelector("data-player-1-framesWon").innerHTML = data.s[0].framesWon;
-		// }
-		// if (document.querySelector("data-player-2-framesWon")) {
-		// 	document.querySelector("data-player-2-framesWon").innerHTML = data.s[1].framesWon;
-		// }
+		if (document.querySelector("data-player-1-framesWon")) {
+			document.querySelector("data-player-1-framesWon").innerHTML = data.s[0].framesWon;
+		}
+		if (document.querySelector("data-player-2-framesWon")) {
+			document.querySelector("data-player-2-framesWon").innerHTML = data.s[1].framesWon;
+		}
+		if (document.querySelector("data-frames-to-play")) {
+			document.querySelector("data-frames-to-play").innerHTML = data.framesToPlay;
+		}
 
 	});
 });

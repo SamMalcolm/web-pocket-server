@@ -113,7 +113,9 @@ class Player {
 		this.handicap = handicap
 		this.score = 0;
 		this.framesWon = 0;
-		this.score += handicap;
+		if (handicap) {
+			this.score += handicap;
+		}
 		return this;
 	}
 }

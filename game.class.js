@@ -16,6 +16,7 @@ function generateUUID() { // Public Domain/MIT
 }
 class Game {
 	s = [];
+	framesToPlay = 0;
 	frames = [];
 	currFrame = [];
 	framesPlayed = 0;
@@ -370,12 +371,13 @@ class Game {
 		}
 	}
 
-	constructor(names, handicaps) {
+	constructor(names, handicaps, framesToPlay = 3) {
 		this.id = generateUUID();
 		this.s.push(new Player(names[0], handicaps[0]));
 		this.s.push(new Player(names[1], handicaps[1]));
 		this.redsRemaining = 15;
 		this.s[0].active = true;
+		this.framesToPlay = framesToPlay;
 		return this;
 	}
 }

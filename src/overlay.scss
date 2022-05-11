@@ -1,0 +1,85 @@
+body {
+	background:transparent;
+	margin:0;
+	padding:0;
+	font-family: sans-serif;
+}
+
+.overlay-container {
+	width:950px;
+	height:31px;
+	position:relative;
+	font-weight: bold;
+	background-color:darkolivegreen;
+	.overlay-frames-won {
+		height: 17px;
+background: white;
+width: 136px;
+color: black;
+position: absolute;
+left: calc(50% - 75px);
+top: 0;
+padding: 7px;
+text-align: center;
+	}
+	.player-region {
+		height: 31px;
+		position:absolute;
+		top:0;
+		left:0;
+		width:400px;
+		.player-name {
+			display: inline-block;
+			padding: 7px;
+			margin-left: 10px;
+			color: white;
+			text-transform: uppercase;
+		}
+		.player-name-2 {
+			position:absolute;
+			right:10;
+			padding: 7px;
+			margin-left: 10px;
+			color: white;
+			text-transform: uppercase;
+		}
+		.player-score {
+			background-color: powderblue;
+			color:black;
+			display: inline-block;
+			position: absolute;
+			right: 0;
+			height: 17px;
+			width: 70px;
+			padding: 7px;
+			text-align: center;
+		}
+		.player-score-2 {
+			background-color: powderblue;
+			color:black;
+			display: inline-block;
+			position: absolute;
+			left: 0;
+			height: 17px;
+			width: 70px;
+			padding: 7px;
+			text-align: center;
+		}
+		
+
+	}
+	.player-region:nth-of-type(1) {
+		left:initial;
+		right:0 !important;
+		
+		.player-region {
+			left:initial;
+			right:0 !important;
+			.player-score {
+				left:0 !important;
+				right:initial;
+			}
+		
+		}
+	}
+}

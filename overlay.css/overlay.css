@@ -1,0 +1,51 @@
+body {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif; }
+
+.overlay-container {
+  width: 950px;
+  height: 31px;
+  position: relative;
+  font-weight: bold;
+  background-color: darkolivegreen; }
+  .overlay-container .overlay-frames-won {
+    height: 31px;
+    background: white;
+    width: 150px;
+    color: black;
+    position: absolute;
+    left: calc(50% - 75px);
+    top: 0; }
+  .overlay-container .player-region {
+    height: 31px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px; }
+    .overlay-container .player-region .player-name {
+      display: inline-block;
+      padding: 7px;
+      margin-left: 10px;
+      color: white;
+      text-transform: uppercase; }
+    .overlay-container .player-region .player-score {
+      background-color: powderblue;
+      color: black;
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      height: 17px;
+      width: 70px;
+      padding: 7px;
+      text-align: center; }
+  .overlay-container .player-region:nth-of-type(1) {
+    left: initial;
+    right: 0 !important; }
+    .overlay-container .player-region:nth-of-type(1) .player-region {
+      left: initial;
+      right: 0 !important; }
+      .overlay-container .player-region:nth-of-type(1) .player-region .player-score {
+        left: 0 !important;
+        right: initial; }
