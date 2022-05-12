@@ -4,6 +4,7 @@ var room = /games\/.+\//igm.exec(window.location.href)[0];
 room = room.slice(6, -1);
 
 import './overlay.scss';
+import './scoreboard.scss';
 
 socket.on('connect', () => {
 	console.log("connected");
@@ -21,6 +22,7 @@ socket.on('connect', () => {
 	socket.on("updateUI", data => {
 		console.log("UPDATING UI");
 		console.log(data);
+		updateUI(data);
 		// loop through data object keys and update any html elements with the same id
 		// for (var key in data) {
 		// 	if (document.querySelector("data-game-info=['" + key + "']")) {
@@ -29,34 +31,41 @@ socket.on('connect', () => {
 		// }
 
 		// update scoreboard
-		if (document.querySelector("*[data-player-1-score]")) {
-			document.querySelector("*[data-player-1-score]").innerHTML = data.s[0].score;
-		}
-		if (document.querySelector("*[data-player-2-score]")) {
-			document.querySelector("*[data-player-2-score]").innerHTML = data.s[1].score;
-		}
-		if (document.querySelector("*[data-player-1-name]")) {
-			document.querySelector("*[data-player-1-name]").innerHTML = data.s[0].name;
-		}
-		if (document.querySelector("*[data-player-2-name]")) {
-			document.querySelector("*[data-player-2-name]").innerHTML = data.s[1].name;
-		}
 
-		if (document.querySelector("data-player-1-framesWon")) {
-			document.querySelector("data-player-1-framesWon").innerHTML = data.s[0].framesWon;
-		}
-		if (document.querySelector("data-player-2-framesWon")) {
-			document.querySelector("data-player-2-framesWon").innerHTML = data.s[1].framesWon;
-		}
-		if (document.querySelector("data-frames-to-play")) {
-			document.querySelector("data-frames-to-play").innerHTML = data.framesToPlay;
-		}
 
 	});
 });
 
+// update ui based on data
+const updateUI = data => {
+	if (document.querySelector("*[data-player-1-score]")) {
+		document.querySelector("*[data-player-1-score]").innerHTML = data.s[0].score;
+	}
+	if (document.querySelector("*[data-player-2-score]")) {
+		document.querySelector("*[data-player-2-score]").innerHTML = data.s[1].score;
+	}
+	if (document.querySelector("*[data-player-1-name]")) {
+		document.querySelector("*[data-player-1-name]").innerHTML = data.s[0].name;
+	}
+	if (document.querySelector("*[data-player-2-name]")) {
+		document.querySelector("*[data-player-2-name]").innerHTML = data.s[1].name;
+	}
+
+	if (document.querySelector("*[data-player-1-framesWon]")) {
+		document.querySelector("*[data-player-1-framesWon]").innerHTML = data.s[0].framesWon;
+	}
+	if (document.querySelector("*[data-player-2-framesWon]")) {
+		document.querySelector("*[data-player-2-framesWon]").innerHTML = data.s[1].framesWon;
+	}
+	if (document.querySelector("*[data-frames-to-play]")) {
+		document.querySelector("*[data-frames-to-play]").innerHTML = data.framesToPlay;
+	}
+}
 
 
+if (window.gameDataInit) {
+	updateUI(window.gameDataInit);
+}
 
 
 // deleteGame function which sends a DELETE request to the server using XMLHttpRequest

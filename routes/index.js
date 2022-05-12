@@ -20,9 +20,8 @@ router.post('/games/new', function (req, res, next) {
 	if (req.body.hc) {
 		hc = [req.body.hc1, req.body.hc2];
 	}
-	let g = new Game([req.body.name1, req.body.name2], hc)
+	let g = new Game([req.body.name1, req.body.name2], hc, parseInt(req.body.framesToPlay));
 	activeGames.push(g);
-
 	res.redirect('/games');
 });
 
