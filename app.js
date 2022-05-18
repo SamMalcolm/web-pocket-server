@@ -40,8 +40,14 @@ game.on("connection", socket => {
 		let currGame = global.activeGames.filter(g => (g.id == data.room))[0];
 		console.log(currGame);
 		if (currGame) {
-			if (data.action == "R") {
-				currGame.pot("R", false);
+			if (["R", "G", "Y", "br", "bl", "P", "B"].indexOf(data.action) > -1) {
+				currGame.pot(data.action, false);
+			} else if (["F4", "F5", "F6", "F7"].indexOf(data.action) > -1) {
+				currGame.foul(data.action.slice(1));
+			} else if (data.action == "passTurn") {
+				currGame.passTurn();
+			} else if (data.action == "undo") {
+				currGame.undo();
 			}
 
 			let index = global.activeGames.indexOf(currGame);

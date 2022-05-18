@@ -10,27 +10,45 @@ socket.on('connect', () => {
 	console.log("connected");
 	socket.emit('join', { room: room })
 
-	// when button#update is clicked emit updateGame socket event
-	if (document.querySelector("button#update")) {
-		document.querySelector("button#update").addEventListener("click", () => {
-			console.log("CLICKED")
-			socket.emit("updateGame", { action: "R", room: room });
-		}
-		);
+	let foulButtons = document.querySelectorAll("button.foul");
+	let potButtons = document.querySelectorAll("button.pot");
+
+	if (foulButtons.length) {
+		foulButtons.forEach(b => b.addEventListener('click', e => {
+			socket.emit('updateGame', { room: room, action: "F" + e.target.getAttribute('data-score-penalty') });
+		}));
 	}
+
+	if (potButtons.length) {
+		potButtons.forEach(b => b.addEventListener('click', e => {
+			socket.emit('updateGame', { room: room, action: e.target.getAttribute('data-pot-code') });
+		}));
+	}
+
+	if (document.querySelector("button.undo")) {
+		document.querySelector("button.undo").addEventListener('click', e => {
+			socket.emit('updateGame', { room: room, action: "undo" });
+		});
+	}
+
+	if (document.querySelector("button.changePlayer")) {
+		document.querySelector("button.changePlayer").addEventListener('click', e => {
+			socket.emit('updateGame', { room: room, action: "passTurn" });
+		});
+	}
+
+	// if (document.querySelector("button#update")) {
+	// 	document.querySelector("button#update").addEventListener("click", () => {
+	// 		console.log("CLICKED")
+	// 		socket.emit("updateGame", { action: "R", room: room });
+	// 	}
+	// 	);
+	// }
 
 	socket.on("updateUI", data => {
 		console.log("UPDATING UI");
 		console.log(data);
 		updateUI(data);
-		// loop through data object keys and update any html elements with the same id
-		// for (var key in data) {
-		// 	if (document.querySelector("data-game-info=['" + key + "']")) {
-		// 		document.querySelector("data-game-info=['" + key + "']").innerHTML = data[key];
-		// 	}
-		// }
-
-		// update scoreboard
 
 
 	});
@@ -59,6 +77,9 @@ const updateUI = data => {
 	}
 	if (document.querySelector("*[data-frames-to-play]")) {
 		document.querySelector("*[data-frames-to-play]").innerHTML = data.framesToPlay;
+	}
+	if (document.querySelector("*[data-reds-remaining]")) {
+		document.querySelector("*[data-reds-remaining]").innerHTML = data.redsRemaining;
 	}
 }
 

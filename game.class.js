@@ -69,7 +69,7 @@ class Game {
 			if (this.currFrame.last.contains("R")) {
 				return true;
 			} else {
-				for (i = this.currFrame.length - 1; i >= 0; i--) {
+				for (let i = this.currFrame.length - 1; i >= 0; i--) {
 					if (this.currFrame[i].contains("ir") || this.currFrame[i].contains("dr")) {
 						continue;
 					} else {
@@ -121,14 +121,14 @@ class Game {
 	}
 
 	foul(value) {
-		this.currFrame.push('F$value');
+		this.currFrame.push('F' + value);
 
-		p = this.getInactive();
-		p.score += value;
-		p.foulPosRecieved += value;
+		let p = this.getInactive();
+		p.score += parseInt(value);
+		p.foulPosRecieved += parseInt(value);
 
-		a = this.getActive();
-		a.foulPosGiven += value;
+		let a = this.getActive();
+		a.foulPosGiven += parseInt(value);
 
 		this.calculatePosRemaining();
 	}
@@ -144,7 +144,7 @@ class Game {
 	}
 
 	passTurn() {
-		for (i = 0; i < this.s.length; i++) {
+		for (let i = 0; i < this.s.length; i++) {
 			this.s[i].currBreak = 0;
 			if (this.s[i].active) {
 				this.s[i].active = false;
@@ -168,7 +168,7 @@ class Game {
 			this.s[1].framesWon++;
 		}
 
-		for (i = 0; i < s.length; i++) {
+		for (let i = 0; i < s.length; i++) {
 			this.s[i].score = this.s[i].handicap;
 			this.s[i].currBreak = 0;
 			this.s[i].snookersRequired = 0;
@@ -290,11 +290,11 @@ class Game {
 	}
 
 	undo() {
-		ip = getInactive();
-		ap = getActive();
+		let ip = this.getInactive();
+		let ap = this.getActive();
 
 		if (this.currFrame.length > 0) {
-			lastAction = this.currFrame.removeLast();
+			let lastAction = this.currFrame.removeLast();
 			if (lastAction == "dr" || lastAction == "ir") {
 				if (lastAction == "dr") {
 					this.redsRemaining++;
@@ -302,7 +302,7 @@ class Game {
 					this.redsRemaining--;
 				}
 			}
-			for (i = 0; i < this.balls.length; i++) {
+			for (let i = 0; i < this.balls.length; i++) {
 				if (lastAction.contains(balls[i]['code']) &&
 					!lastAction.contains("T")) {
 					ap.score -= balls[i]['value'];
@@ -313,25 +313,25 @@ class Game {
 						ap.currBreak -= balls[i]['value'];
 					}
 					if (!lastAction.contains('*')) {
-						if (balls[i]['code'].contains("R")) {
+						if (this.balls[i]['code'].contains("R")) {
 							this.redsRemaining++;
 						} else if (this.redsRemaining == 0) {
-							if (balls[i]['code'].contains("Y")) {
+							if (this.balls[i]['code'].contains("Y")) {
 								this.yellowsRemaining = 1;
 							}
-							if (balls[i]['code'].contains("G")) {
+							if (this.balls[i]['code'].contains("G")) {
 								this.greensRemaining = 1;
 							}
-							if (balls[i]['code'].contains("br")) {
+							if (this.balls[i]['code'].contains("br")) {
 								this.brownsRemaining = 1;
 							}
-							if (balls[i]['code'].contains("bl")) {
+							if (this.balls[i]['code'].contains("bl")) {
 								this.bluesRemaining = 1;
 							}
-							if (balls[i]['code'].contains("P")) {
+							if (this.balls[i]['code'].contains("P")) {
 								this.pinksRemaining = 1;
 							}
-							if (balls[i]['code'].contains("B")) {
+							if (this.balls[i]['code'].contains("B")) {
 								this.blacksRemaining = 1;
 							}
 						}
