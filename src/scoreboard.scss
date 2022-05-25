@@ -1,5 +1,10 @@
+body {
+	background-color: black;
+	color:white;
+}
+
 .scoreboard-container {
-	table {
+	table:nth-of-type(1) {
 		width:100%;
 		font-size:48px;
 		tbody {
@@ -17,7 +22,35 @@
 				&.scoreboard-score {
 					font-size:200px;
 				}
+			&.divider {
+				height: 20px;
+				background: olivedrab;
+}
+			}
 		}
 	}
-}
+	table.shared-stats {
+		width:100%;
+		font-size:48px;
+		tbody {
+			width:100%;
+		
+			tr {
+				width:100%;
+				td:nth-of-type(1) {
+					text-align: right;
+					font-weight:bold;
+					width:50%;
+					padding-right:10px;
+				}
+				td:nth-of-type(2) {
+					text-align: left;
+					width:50%;
+					padding-left:10px;
+				
+				}
+			}
+		}
+
+	}
 }

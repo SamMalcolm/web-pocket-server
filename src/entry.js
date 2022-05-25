@@ -81,7 +81,43 @@ const updateUI = data => {
 	if (document.querySelector("*[data-reds-remaining]")) {
 		document.querySelector("*[data-reds-remaining]").innerHTML = data.redsRemaining;
 	}
+	if (document.querySelector("*[data-pts-remaining]")) {
+		document.querySelector("*[data-pts-remaining]").innerHTML = data.posRemaining;
+	}
+
+	if (document.querySelector("*[data-player-1-foul-pts-conceded]")) {
+		document.querySelector("*[data-player-1-foul-pts-conceded]").innerHTML = data.s[0].foulPosGiven;
+	}
+	if (document.querySelector("*[data-player-2-foul-pts-conceded]")) {
+		document.querySelector("*[data-player-2-foul-pts-conceded]").innerHTML = data.s[1].foulPosGiven;
+	}
+
+
+
+	if (document.querySelector("*[data-player-1-snookers-reqd]")) {
+		document.querySelector("*[data-player-1-snookers-reqd]").innerHTML = data.s[0].snookersRequired;
+	}
+	if (document.querySelector("*[data-player-2-snookers-reqd]")) {
+		document.querySelector("*[data-player-2-snookers-reqd]").innerHTML = data.s[1].snookersRequired;
+	}
+
+
+	if (document.querySelector("*[data-player-1-current-break]")) {
+		document.querySelector("*[data-player-1-current-break]").innerHTML = data.s[0].currBreak;
+	}
+	if (document.querySelector("*[data-player-2-current-break]")) {
+		document.querySelector("*[data-player-2-current-break]").innerHTML = data.s[1].currBreak;
+	}
+
+	if (document.querySelector("*[data-player-1-max-break]")) {
+		document.querySelector("*[data-player-1-max-break]").innerHTML = data.s[0].highestBreak;
+	}
+	if (document.querySelector("*[data-player-2-max-break]")) {
+		document.querySelector("*[data-player-2-max-break]").innerHTML = data.s[1].highestBreak;
+	}
 }
+
+
 
 
 if (window.gameDataInit) {
