@@ -35,12 +35,15 @@ game.on("connection", socket => {
 	});
 
 	socket.on('updateGame', data => {
-		console.log("gameUpdate " + data.room)
-		console.log(global.activeGames);
+
 		let currGame = global.activeGames.filter(g => (g.id == data.room))[0];
-		console.log(currGame);
+		console.log("==========")
+		console.log("gameUpdate " + data.room)
+		console.log(data.action);
+		console.log("==========")
 		if (currGame) {
 			if (["R", "G", "Y", "br", "bl", "P", "B"].indexOf(data.action) != -1) {
+				console.log("running method")
 				currGame.pot(data.action, false);
 			} else if (["F4", "F5", "F6", "F7"].indexOf(data.action) != -1) {
 				currGame.foul(data.action.slice(1));

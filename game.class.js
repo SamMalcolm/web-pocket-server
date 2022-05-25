@@ -34,6 +34,7 @@ class Game {
 	minFoul = 4;
 
 	calculatePosRemaining() {
+		console.log("Calculating points left");
 		this.posRemaining = (8 * this.redsRemaining) +
 			(2 * this.yellowsRemaining) +
 			(3 * this.greensRemaining) +
@@ -46,20 +47,20 @@ class Game {
 				this.posRemaining += 7;
 			}
 		}
-		this.inactivePosRemaining = this.posRemaining;
+		let inactivePosRemaining = this.posRemaining;
 		if (this.currFrame.length != 0) {
 			if (this.currFrame[this.currFrame.length - 1].indexOf("R") != -1) {
-				this.inactivePosRemaining -= 7;
+				inactivePosRemaining -= 7;
 			}
 		}
 
 		let p = this.getInactive();
 		let a = this.getActive();
 
-		// a.updateMaxScore(this.posRemaining);
-		// p.updateMaxScore(this.inactivePosRemaining);
-		// a.updateScoreLine(this.posRemaining, p.score, this.minFoul, p.maxScore);
-		// p.updateScoreLine(this.inactivePosRemaining, a.score, this.minFoul, a.maxScore);
+		a.updateMaxScore(this.posRemaining);
+		p.updateMaxScore(inactivePosRemaining);
+		a.updateScoreLine(this.posRemaining, p.score, this.minFoul, p.maxScore);
+		p.updateScoreLine(inactivePosRemaining, a.score, this.minFoul, a.maxScore);
 	}
 
 	lastActionRed() {
@@ -188,6 +189,8 @@ class Game {
 	}
 
 	pot(colour, fb) {
+		console.log("in method: " + colour)
+		console.log("in method: " + fb)
 		let ap = this.getActive();
 		switch (colour) {
 			case "R":
@@ -294,7 +297,7 @@ class Game {
 		let ap = this.getActive();
 
 		if (this.currFrame.length > 0) {
-			let lastAction = this.currFrame.removeLast();
+			let lastAction = this.currFrame.pop();
 			if (lastAction == "dr" || lastAction == "ir") {
 				if (lastAction == "dr") {
 					this.redsRemaining++;

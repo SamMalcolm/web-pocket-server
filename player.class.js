@@ -59,7 +59,7 @@ class Player {
 				this.winningScoreline = "#0B0B0B";
 			} else {
 				while (scoringPos <= posRemaining) {
-					let pottentialScore = score;
+					let pottentialScore = this.score;
 					let pottentialPosRemaining = posRemaining;
 					pottentialScore += scoringPos;
 					pottentialPosRemaining -= scoringPos;
