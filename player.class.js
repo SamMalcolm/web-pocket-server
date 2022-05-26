@@ -42,7 +42,7 @@ class Player {
 			this.scoreFractionOfMax = 0;
 		}
 		if (this.maxScore < opponentsScore) {
-			let sr = (opponentsScore - maxScore) / minFoul;
+			let sr = (opponentsScore - this.maxScore) / minFoul;
 			this.snookersRequired = Math.ceil(sr);
 			this.snookersReqdFractionOfMax = 0;
 		} else {

@@ -5,6 +5,7 @@ room = room.slice(6, -1);
 
 import './overlay.scss';
 import './scoreboard.scss';
+import './remote.scss';
 
 socket.on('connect', () => {
 	console.log("connected");

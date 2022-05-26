@@ -1,0 +1,9 @@
+@import './snookerColours.scss';
+
+@each $c, $v in $snookerColours {
+	.pot#{$c} {
+		background-color: $v;
+		color:white;
+		font-weight:bold;
+	}
+}
