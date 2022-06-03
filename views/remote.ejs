@@ -1,44 +1,52 @@
-// button that emits a web socket gameUpdate event to the server
-<table>
-	<tbody>
-		<tr class="scoreboard-playername">
-			<td data-player-1-name></td>
-			<td>Player</td>
-			<td data-player-2-name></td>
-		</tr>
-		<tr class="scoreboard-score">
-			<td data-player-1-score></td>
-			<td>Score</td>
-			<td data-player-2-score></td>
-		</tr>
-		<tr class="scoreboard-frames">
-			<td data-player-1-framesWon></td>
-			<td>Frames (<span data-frames-to-play></span>)</td>
-			<td data-player-2-framesWon></td>
-		</tr>
-		<tr>
-			<td>Reds Remaining</td>
-			<td data-reds-remaining>15s</td>
-		</tr>
-	</tbody>
-</table>
-// divider
+<div class="container">
+	<h2>Score Board</h2>
+	<table class="sbRemote">
+		<tbody>
+			<tr class="scoreboard-playername">
+				<td data-player-1-name></td>
+				<td>Player</td>
+				<td data-player-2-name></td>
+			</tr>
+			<tr class="scoreboard-score">
+				<td data-player-1-score></td>
+				<td>Score</td>
+				<td data-player-2-score></td>
+			</tr>
+			<tr class="scoreboard-frames">
+				<td data-player-1-framesWon></td>
+				<td>Frames (<span data-frames-to-play></span>)</td>
+				<td data-player-2-framesWon></td>
+			</tr>
+			<tr>
+				<td>Reds Remaining</td>
+				<td data-reds-remaining>15s</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 <hr>
-<button class="changePlayer">Change Active Player</button>
-<button class="pot potRed" data-score-incr="1" data-pot-code="R">+1</button>
-<button class="pot potYellow" data-score-incr="2" data-pot-code="Y">+2</button>
-<button class="pot potGreen" data-score-incr="3" data-pot-code="G">+3</button>
-<button class="pot potBrown" data-score-incr="4" data-pot-code="br">+4</button>
-<button class="pot potBlue" data-score-incr="5" data-pot-code="bl">+5</button>
-<button class="pot potPink" data-score-incr="6" data-pot-code="P">+6</button>
-<button class="pot potBlack" data-score-incr="7" data-pot-code="B">+7</button>
-<label for="fb">Free Ball?</label>
-<input type="checkbox" name="fb" />
+<div class="container">
+	<h2>Remote</h2>
+	<button class="changePlayer">Change Active Player</button>
+	<h3>Pots</h3>
+	<button class="pot potRed" data-score-incr="1" data-pot-code="R">+1</button>
+	<button class="pot potYellow" data-score-incr="2" data-pot-code="Y">+2</button>
+	<button class="pot potGreen" data-score-incr="3" data-pot-code="G">+3</button>
+	<button class="pot potBrown" data-score-incr="4" data-pot-code="br">+4</button>
+	<button class="pot potBlue" data-score-incr="5" data-pot-code="bl">+5</button>
+	<button class="pot potPink" data-score-incr="6" data-pot-code="P">+6</button>
+	<button class="pot potBlack" data-score-incr="7" data-pot-code="B">+7</button>
+	<div class="fbSection">
+		<label for="fb">Free Ball?</label>
+		<input type="checkbox" name="fb" />
+	</div>
 
-<button class="foul foulFour" data-score-penalty="4">+4</button>
-<button class="foul foulFive" data-score-penalty="5">+5</button>
-<button class="foul foulSix" data-score-penalty="6">+6</button>
-<button class="foul foulSeven" data-score-penalty="7">+7</button>
+	<h3>Fouls</h3>
+	<button class="foul foulFour" data-score-penalty="4">+4</button>
+	<button class="foul foulFive" data-score-penalty="5">+5</button>
+	<button class="foul foulSix" data-score-penalty="6">+6</button>
+	<button class="foul foulSeven" data-score-penalty="7">+7</button>
 
-<button class="undo">Undo</button>
+	<button class="undo">Undo</button>
+</div>
 <% include partials/socket.ejs %>

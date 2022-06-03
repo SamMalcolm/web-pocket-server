@@ -7,3 +7,53 @@
 		font-weight:bold;
 	}
 }
+
+
+.container {
+	width:100%;
+	max-width:1100px;
+	margin:auto;
+	padding:10px;
+}
+
+.fbSection {
+	display:block;
+	width:100%;
+}
+
+.pot {
+	font-size: 25px;
+padding: 10px;
+width: calc(100%/3 - 30px);
+margin: 10px;
+display: inline-block;
+&.potRed {
+	width:calc(100% - 40px);
+	display:block;
+}
+}
+
+.changePlayer {
+	font-size: 25px;
+width: calc(100% - 40px);
+margin: 10px;
+display: block;
+}
+
+.foul {
+	margin: 10px;
+display: inline-block;
+width: calc(100%/4 - 29px);
+font-size: 22px;
+}
+
+.undo {
+	font-size: 25px;
+width: calc(100% - 40px);
+margin: 10px;
+display: block;
+}
+
+.sbRemote {
+	margin:auto;
+}
