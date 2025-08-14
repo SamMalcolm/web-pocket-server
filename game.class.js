@@ -1,4 +1,5 @@
-const Player = require('./player.class.js')
+const Player = require('./player.class.js');
+
 function generateUUID() { // Public Domain/MIT
 	var d = new Date().getTime();//Timestamp
 	var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
@@ -14,6 +15,7 @@ function generateUUID() { // Public Domain/MIT
 		return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
 	});
 }
+
 class Game {
 	s = [];
 	framesToPlay = 0;
@@ -32,6 +34,65 @@ class Game {
 	blacksRemaining = 1;
 	freeBall = false;
 	minFoul = 4;
+
+	balls = [
+		{
+			"name": "Red",
+			"code": "R",
+			"value": 1,
+			"quantity": 15,
+			"dark_colour": "#9D2C2C",
+			"light_colour": "#C72D2D",
+		},
+		{
+			"name": "Yellow",
+			"code": "Y",
+			"value": 2,
+			"quantity": 1,
+			"dark_colour": "#CEB636",
+			"light_colour": "#E0C534",
+		},
+		{
+			"name": "Green",
+			"code": "G",
+			"value": 3,
+			"quantity": 1,
+			"dark_colour": "#397140",
+			"light_colour": "#4CA256",
+		},
+		{
+			"name": "Brown",
+			"code": "br",
+			"value": 4,
+			"quantity": 1,
+			"dark_colour": "#694A20",
+			"light_colour": "#B48247",
+		},
+		{
+			"name": "Blue",
+			"code": "bl",
+			"value": 5,
+			"quantity": 1,
+			"dark_colour": "#2F4EB4",
+			"light_colour": "#5271D6",
+		},
+		{
+			"name": "Pink",
+			"code": "P",
+			"value": 6,
+			"quantity": 1,
+			"dark_colour": "#9B3D9B",
+			"light_colour": "#E066BA",
+		},
+		{
+			"name": "Black",
+			"code": "B",
+			"value": 7,
+			"quantity": 1,
+			"dark_colour": "#0B0B0B",
+			"light_colour": "#393939",
+		},
+	];
 
 	calculatePosRemaining() {
 		console.log("Calculating points left");
@@ -67,14 +128,14 @@ class Game {
 		if (this.currFrame.length == 0) {
 			return false;
 		} else {
-			if (this.currFrame.last.contains("R")) {
+			if (this.currFrame.last == "R") {
 				return true;
 			} else {
 				for (let i = this.currFrame.length - 1; i >= 0; i--) {
-					if (this.currFrame[i].contains("ir") || this.currFrame[i].contains("dr")) {
+					if (this.currFrame[i] == "ir" || this.currFrame[i] == "dr") {
 						continue;
 					} else {
-						if (this.currFrame[i].contains("R")) {
+						if (this.currFrame[i] == "R") {
 							return true;
 						} else {
 							return false;
@@ -163,14 +224,18 @@ class Game {
 		this.frames.push(this.currFrame);
 		this.currFrame = [];
 
-		if (this.s[0].score > s[1].score) {
+		if (this.s[0].score > this.s[1].score) {
 			this.s[0].framesWon++;
 		} else {
 			this.s[1].framesWon++;
 		}
 
-		for (let i = 0; i < s.length; i++) {
-			this.s[i].score = this.s[i].handicap;
+		for (let i = 0; i < this.s.length; i++) {
+			if (this.s[i].handicap) {
+				this.s[i].score = this.s[i].handicap;
+			} else {
+				this.s[i].score = 0;
+			}
 			this.s[i].currBreak = 0;
 			this.s[i].snookersRequired = 0;
 			this.s[i].maxScore = 147;
@@ -293,11 +358,16 @@ class Game {
 	}
 
 	undo() {
+
+		console.log("Undoing last action");
+		console.log("Current Frame: " + this.currFrame);
+
 		let ip = this.getInactive();
 		let ap = this.getActive();
 
 		if (this.currFrame.length > 0) {
 			let lastAction = this.currFrame.pop();
+			console.log("Last Action: " + lastAction);
 			if (lastAction == "dr" || lastAction == "ir") {
 				if (lastAction == "dr") {
 					this.redsRemaining++;
@@ -305,36 +375,37 @@ class Game {
 					this.redsRemaining--;
 				}
 			}
+
 			for (let i = 0; i < this.balls.length; i++) {
-				if (lastAction.contains(balls[i]['code']) &&
-					!lastAction.contains("T")) {
-					ap.score -= balls[i]['value'];
+				if (lastAction.indexOf(this.balls[i]['code']) != -1 &&
+					lastAction.indexOf("T") == -1) {
+					ap.score -= this.balls[i]['value'];
 					if (ap.currBreak == ap.highestBreak) {
-						ap.highestBreak -= balls[i]['value'];
+						ap.highestBreak -= this.balls[i]['value'];
 					}
 					if (ap.currBreak > 0) {
-						ap.currBreak -= balls[i]['value'];
+						ap.currBreak -= this.balls[i]['value'];
 					}
-					if (!lastAction.contains('*')) {
-						if (this.balls[i]['code'].contains("R")) {
+					if (!lastAction == '*') {
+						if (this.balls[i]['code'] == "R") {
 							this.redsRemaining++;
 						} else if (this.redsRemaining == 0) {
-							if (this.balls[i]['code'].contains("Y")) {
+							if (this.balls[i]['code'] == "Y") {
 								this.yellowsRemaining = 1;
 							}
-							if (this.balls[i]['code'].contains("G")) {
+							if (this.balls[i]['code'] == "G") {
 								this.greensRemaining = 1;
 							}
-							if (this.balls[i]['code'].contains("br")) {
+							if (this.balls[i]['code'] == "br") {
 								this.brownsRemaining = 1;
 							}
-							if (this.balls[i]['code'].contains("bl")) {
+							if (this.balls[i]['code'] == "bl") {
 								this.bluesRemaining = 1;
 							}
-							if (this.balls[i]['code'].contains("P")) {
+							if (this.balls[i]['code'] == "P") {
 								this.pinksRemaining = 1;
 							}
-							if (this.balls[i]['code'].contains("B")) {
+							if (this.balls[i]['code'] == "B") {
 								this.blacksRemaining = 1;
 							}
 						}
@@ -344,10 +415,11 @@ class Game {
 				}
 			}
 
+
 			switch (lastAction) {
 				case "PT":
 					this.passTurn();
-					this.currFrame.removeLast();
+					this.currFrame.pop();
 					break;
 				case "F4":
 					ip.score -= 4;

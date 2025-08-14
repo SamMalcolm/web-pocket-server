@@ -3,31 +3,60 @@ body {
 	margin:0;
 	padding:0;
 	font-family: sans-serif;
+	zoom:0.5;
+}
+
+// css variable for height and width of overlay container
+:root {
+	--overlay-height: 56px;
+	--overlay-width: 1550px;
+	--frames-won-width:256px;
+	--font-size:36px;
+
+
+	--secondary-colour: #e4791c;
+	--feature-colour:#121557;
+	--light-gray: lightgrey;
+	--frame-score-color:white;
+	--player-points-colour: var(--secondary-colour);
+
+}
+
+.overlay-frame {
+	width:1920px;
+	height:1080px;
+	position:relative;
+	outline:1px solid pink;
 }
 
 .overlay-container {
-	width:950px;
-	height:31px;
-	position:relative;
+	width:var(--overlay-width);
+	height:var(--overlay-height);
+	left:calc(50% - var(--overlay-width) / 2);
+	bottom:50px;
+	position:absolute;
+	font-size: var(--font-size);
 	font-weight: bold;
-	background-color:darkolivegreen;
+	background-color:var(--feature-colour);
 	.overlay-frames-won {
-		height: 17px;
-background: white;
-width: 136px;
-color: black;
-position: absolute;
-left: calc(50% - 75px);
-top: 0;
-padding: 7px;
-text-align: center;
+		height: calc(var(--overlay-height) - 14px);
+		background: white;
+		width: calc(var(--frames-won-width) - 14px);
+		color: black;
+		position: absolute;
+		left: calc(50% - var(--frames-won-width) / 2);
+		top: 0;
+		padding: 7px;
+		text-align: center;
+		font-size: var(--font-size);
+		
 	}
 	.player-region {
-		height: 31px;
+		height: calc(var(--overlay-height));
 		position:absolute;
 		top:0;
 		left:0;
-		width:400px;
+		width:calc((var(--overlay-width) / 2 - var(--frames-won-width) / 2));
 		.player-name {
 			display: inline-block;
 			padding: 7px;
@@ -44,24 +73,24 @@ text-align: center;
 			text-transform: uppercase;
 		}
 		.player-score {
-			background-color: powderblue;
-			color:black;
+			background-color: var(--secondary-colour);
+			color:white;
 			display: inline-block;
 			position: absolute;
 			right: 0;
-			height: 17px;
-			width: 70px;
+			height: calc(var(--overlay-height) - 14px);
+			width: 140px;
 			padding: 7px;
 			text-align: center;
 		}
 		.player-score-2 {
-			background-color: powderblue;
-			color:black;
+			background-color: var(--secondary-colour);
+			color:white;
 			display: inline-block;
 			position: absolute;
 			left: 0;
-			height: 17px;
-			width: 70px;
+			height: calc(var(--overlay-height) - 14px);
+			width: 140px;
 			padding: 7px;
 			text-align: center;
 		}
@@ -80,6 +109,87 @@ text-align: center;
 				right:initial;
 			}
 		
+		}
+	}
+}
+
+
+.player-1-break {
+	display:none;
+	position: absolute;
+	top: -65px;
+	background: white;
+	padding: 7px;
+	right:0;
+	&.show {
+		display:block;
+	}
+}
+
+.player-2-break {
+	display:none;
+	position: absolute;
+	top: -65px;
+	background: white;
+	padding: 7px;
+	&.show {
+		display:block;
+	}
+}
+
+.break_bar {
+	position: relative;
+	height: 800px;
+	top: 60px;
+	left: 60px;
+	background: var(--light-gray);;
+	width: 56px;
+	color: white;
+	font-weight: bold;
+	font-size: 23;
+	display: flex;
+	justify-content: center;
+	padding-top: 10px;
+
+	&.left_player {
+		left: 60px;
+	}
+	&.right_player {
+		right: 60px;
+	}
+	.max_available {
+		height: calc(100% - 10px);
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		background-color: var(--light-gray);
+			display: flex;
+	justify-content: center;
+	padding-top: 10px;
+	color: var(--feature-colour);
+
+		.snooker_line {
+			height: calc(50% - 10px);
+			color: white;
+			width: 100%;
+			background-color: var(--secondary-colour);
+			bottom: 0;
+			position: absolute;
+			border-top: 10px solid rgb(216, 175, 27);
+				display: flex;
+	justify-content: center;
+	padding-top: 10px;
+
+			.break {
+				height: calc(50% - 10px);
+				width: 100%;
+				background-color: var(--feature-colour);
+				bottom: 0;
+				position: absolute;
+					display: flex;
+	justify-content: center;
+	padding-top: 10px;
+			}
 		}
 	}
 }

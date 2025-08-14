@@ -1,6 +1,7 @@
 class Player {
 	// NAME
 	name = '';
+	showBreakInUI = false;
 
 	// SCORING METRICS
 	handicap = 0;

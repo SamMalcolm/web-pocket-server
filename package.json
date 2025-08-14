@@ -12,7 +12,7 @@
 		"@babel/preset-env": "^7.16.11",
 		"babel-loader": "^8.2.5",
 		"cookie-parser": "~1.4.3",
-		"css-loader": "^6.7.1",
+		"css-loader": "^6.11.0",
 		"debug": "~2.6.9",
 		"ejs": "~2.5.7",
 		"express": "~4.16.0",
@@ -21,10 +21,12 @@
 		"memorystore": "^1.6.7",
 		"morgan": "~1.9.0",
 		"node-sass": "^7.0.1",
+		"postcss-loader": "^8.1.1",
+		"sass": "^1.90.0",
 		"sass-loader": "^12.6.0",
 		"socket.io": "^4.5.0",
 		"socket.io-client": "^4.5.0",
-		"style-loader": "^3.3.1",
+		"style-loader": "^3.3.4",
 		"webpack": "^5.72.0"
 	},
 	"devDependencies": {

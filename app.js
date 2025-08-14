@@ -29,7 +29,6 @@ app.locals.io_game = game;
 game.on("connection", socket => {
 	console.log("socket connected");
 	socket.on('join', data => {
-
 		socket.join(data.room)
 		console.log("joining " + data.room)
 	});
@@ -59,6 +58,36 @@ game.on("connection", socket => {
 			game.to(data.room).emit('updateUI', currGame);
 		}
 	});
+
+	socket.on('showBreakForActivePlayer', data => {
+		console.log("TOGGLING BREAK VIEW IN UI")
+		let currGame = global.activeGames.filter(g => (g.id == data.room))[0];
+		if (currGame) {
+			let ap = currGame.getActive();
+			ap.showBreakInUI = !ap.showBreakInUI;
+			game.to(data.room).emit('updateUI', currGame);
+		}
+	})
+
+	socket.on('endGame', data => {
+		let currGame = global.activeGames.filter(g => (g.id == data.room))[0];
+		if (currGame) {
+			currGame.endGame();
+			game.to(data.room).emit('updateUI', currGame);
+		}
+	})
+
+	socket.on('adjustReds', data => {
+		let currGame = global.activeGames.filter(g => (g.id == data.room))[0];
+		if (currGame) {
+			if (data.red_adjustment = 'increment') {
+				currGame.incrementReds();
+			} else {
+				currGame.decrementReds();
+			}
+			game.to(data.room).emit('updateUI', currGame);
+		}
+	})
 
 	socket.on('disconnect', data => {
 		console.log("SOCKET LEFT");

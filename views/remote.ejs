@@ -1,4 +1,5 @@
 <div class="container">
+	<a href="/games">Games List</a>
 	<h2>Score Board</h2>
 	<table class="sbRemote">
 		<tbody>
@@ -30,6 +31,8 @@
 	<button class="changePlayer">Change Active Player</button>
 	<h3>Pots</h3>
 	<button class="pot potRed" data-score-incr="1" data-pot-code="R">+1</button>
+	<button class="pot incReds">+</button>
+	<button class="pot decReds">-</button> <br />
 	<button class="pot potYellow" data-score-incr="2" data-pot-code="Y">+2</button>
 	<button class="pot potGreen" data-score-incr="3" data-pot-code="G">+3</button>
 	<button class="pot potBrown" data-score-incr="4" data-pot-code="br">+4</button>
@@ -48,5 +51,10 @@
 	<button class="foul foulSeven" data-score-penalty="7">+7</button>
 
 	<button class="undo">Undo</button>
+	<button class="end_game">End Game</button>
+	<button class="showBreakForActivePlayer">Toggle Break on OBS Overlay</button>
+	<button class="show_break_bar">Toggle Break Bar on OBS Overlay</button>
+	<hr />
+	<a class="game_overlay_link" target="_blank" href="#">OBS Overlay Link</a>
 </div>
 <% include partials/socket.ejs %>
