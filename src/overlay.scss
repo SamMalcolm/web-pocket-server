@@ -141,21 +141,23 @@ body {
 	position: relative;
 	height: 800px;
 	top: 60px;
-	left: 60px;
-	background: var(--light-gray);;
+	background: var(--light-gray);
 	width: 56px;
 	color: white;
 	font-weight: bold;
 	font-size: 23;
-	display: flex;
 	justify-content: center;
 	padding-top: 10px;
+	display:none;
+	&.show {
+		display:flex;
+	}
 
 	&.left_player {
 		left: 60px;
 	}
 	&.right_player {
-		right: 60px;
+		left: 1796px;
 	}
 	.max_available {
 		height: calc(100% - 10px);
@@ -167,6 +169,7 @@ body {
 	justify-content: center;
 	padding-top: 10px;
 	color: var(--feature-colour);
+	}
 
 		.snooker_line {
 			height: calc(50% - 10px);
@@ -179,6 +182,7 @@ body {
 				display: flex;
 	justify-content: center;
 	padding-top: 10px;
+		}
 
 			.break {
 				height: calc(50% - 10px);
@@ -191,5 +195,3 @@ body {
 	padding-top: 10px;
 			}
 		}
-	}
-}

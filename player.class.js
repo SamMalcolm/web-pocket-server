@@ -2,6 +2,7 @@ class Player {
 	// NAME
 	name = '';
 	showBreakInUI = false;
+	showBreakBarInUI = false;
 
 	// SCORING METRICS
 	handicap = 0;

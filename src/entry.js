@@ -49,7 +49,12 @@ socket.on('connect', () => {
 	if (document.querySelector(".show_break_bar")) {
 		document.querySelector(".show_break_bar").addEventListener('click', e => {
 			console.log("TOGGLING BREAK BAR IN UI")
-			socket.emit('showBreakBar', { room: room })
+			if (document.querySelector(".break_bar.show")) {
+				socket.emit('hideBreakBarInUI', { room: room })
+			} else {
+				socket.emit('showBreakBarInUI', { room: room })
+			}
+
 		})
 	}
 
@@ -91,6 +96,10 @@ socket.on('connect', () => {
 const updateUI = data => {
 
 	console.log("updating ui based on", data);
+	if (document.querySelector('.break_bar')) {
+		console.log("HIDING BREAK BAR")
+		document.querySelector(".break_bar").classList.remove('show');
+	}
 
 	for (let i = 0; i < data.s.length; i++) {
 		let player = data.s[i];
@@ -114,6 +123,52 @@ const updateUI = data => {
 				breakElement.classList.remove("show");
 				breakElement.innerHTML = "Break: 0";
 			}
+		}
+
+
+
+		if (player.showBreakBarInUI && document.querySelector('.break_bar')) {
+			let bb = document.querySelector('.break_bar');
+			console.log("SHOWING BREAK BAR FOR", player.name);
+			bb.classList.remove('left_player');
+			bb.classList.remove('right_player');
+
+			if (player == data.s[0]) {
+				bb.classList.add('right_player');
+			} else {
+				bb.classList.add('left_player');
+			}
+
+			bb.classList.add('show');
+			console.log(bb.classList);
+
+			console.log(bb)
+
+			let max_points_available = player.maxScore;
+			let snooker_line = player.snookersReqdScoreline;
+			let current_break = player.currBreak;
+			let current_break_portion = player.currBreak / player.snookersReqdScoreline * 100;
+
+			let snooker_reqd_portion = player.snookersReqdFractionOfMax * 100;
+
+
+			bb.querySelector('.break').style.height = 'calc(' + current_break_portion + "% - 10px)";
+			bb.querySelector('.break').childNodes[0].textContent = current_break;
+			bb.querySelector('.snooker_line').style.height = 'calc(' + snooker_reqd_portion + "% - 10px)";
+			bb.querySelector('.snooker_line').childNodes[0].textContent = snooker_line;
+
+			bb.querySelector('.max_available').childNodes[0].textContent = max_points_available;
+
+			if (snooker_reqd_portion == 0) {
+				bb.querySelector('.snooker_line').style.height = 'calc(' + current_break_portion + "% - 10px)";
+				bb.querySelector('.snooker_line').childNodes[0].textContent = current_break;
+				bb.querySelector('.break').style.display = 'none';
+				bb.querySelector('.snooker_line').style.backgroundColor = '#121557';
+			} else {
+				bb.querySelector('.break').style.display = 'flex';
+				bb.querySelector('.snooker_line').style.backgroundColor = '#e4791c';
+			}
+
 		}
 
 	}

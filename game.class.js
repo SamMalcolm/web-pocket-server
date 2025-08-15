@@ -213,6 +213,8 @@ class Game {
 			} else {
 				this.s[i].active = true;
 			}
+			this.s[i].showBreakInUI = false;
+			this.s[i].showBreakBarInUI = false;
 		}
 		this.currFrame.push('PT');
 		this.calculatePosRemaining();
@@ -240,6 +242,8 @@ class Game {
 			this.s[i].snookersRequired = 0;
 			this.s[i].maxScore = 147;
 			this.s[i].snookersReqdScoreline = 74;
+			this.s[i].showBreakInUI = false;
+			this.s[i].showBreakBarInUI = false;
 		}
 
 		this.redsRemaining = 15;

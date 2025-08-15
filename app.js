@@ -76,6 +76,31 @@ game.on("connection", socket => {
 			game.to(data.room).emit('updateUI', currGame);
 		}
 	})
+	socket.on('showBreakBarInUI', data => {
+		let currGame = global.activeGames.filter(g => (g.id == data.room))[0];
+		if (currGame) {
+			currGame.s.forEach(p => {
+				if (p.showBreakBarInUI) {
+					p.showBreakBarInUI = false;
+				}
+			});
+			let ap = currGame.getActive();
+			ap.showBreakBarInUI = true;
+			game.to(data.room).emit('updateUI', currGame);
+		}
+	});
+
+	socket.on('hideBreakBarInUI', data => {
+		let currGame = global.activeGames.filter(g => (g.id == data.room))[0];
+		if (currGame) {
+			currGame.s.forEach(p => {
+				if (p.showBreakBarInUI) {
+					p.showBreakBarInUI = false;
+				}
+			});
+			game.to(data.room).emit('updateUI', currGame);
+		}
+	})
 
 	socket.on('adjustReds', data => {
 		let currGame = global.activeGames.filter(g => (g.id == data.room))[0];
