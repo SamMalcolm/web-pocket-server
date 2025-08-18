@@ -76,31 +76,29 @@ game.on("connection", socket => {
 			game.to(data.room).emit('updateUI', currGame);
 		}
 	})
-	socket.on('showBreakBarInUI', data => {
+	socket.on('toggleBreakBar', data => {
 		let currGame = global.activeGames.filter(g => (g.id == data.room))[0];
+		let show_for_active_player = false;
 		if (currGame) {
-			currGame.s.forEach(p => {
-				if (p.showBreakBarInUI) {
-					p.showBreakBarInUI = false;
-				}
-			});
-			let ap = currGame.getActive();
-			ap.showBreakBarInUI = true;
+
+			let players_with_bb_showing_set_to_true = currGame.s.filter(p => p.showBreakBarInUI);
+			if (players_with_bb_showing_set_to_true.length == 0) {
+				show_for_active_player = true;
+			}
+			if (!show_for_active_player) {
+				currGame.s.forEach(p => {
+					if (p.showBreakBarInUI) {
+						p.showBreakBarInUI = false;
+					}
+				});
+			} else {
+				let ap = currGame.getActive();
+				ap.showBreakBarInUI = true;
+			}
+
 			game.to(data.room).emit('updateUI', currGame);
 		}
 	});
-
-	socket.on('hideBreakBarInUI', data => {
-		let currGame = global.activeGames.filter(g => (g.id == data.room))[0];
-		if (currGame) {
-			currGame.s.forEach(p => {
-				if (p.showBreakBarInUI) {
-					p.showBreakBarInUI = false;
-				}
-			});
-			game.to(data.room).emit('updateUI', currGame);
-		}
-	})
 
 	socket.on('adjustReds', data => {
 		let currGame = global.activeGames.filter(g => (g.id == data.room))[0];

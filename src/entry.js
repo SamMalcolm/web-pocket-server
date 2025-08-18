@@ -48,12 +48,8 @@ socket.on('connect', () => {
 
 	if (document.querySelector(".show_break_bar")) {
 		document.querySelector(".show_break_bar").addEventListener('click', e => {
-			console.log("TOGGLING BREAK BAR IN UI")
-			if (document.querySelector(".break_bar.show")) {
-				socket.emit('hideBreakBarInUI', { room: room })
-			} else {
-				socket.emit('showBreakBarInUI', { room: room })
-			}
+
+			socket.emit('toggleBreakBar', { room: room })
 
 		})
 	}
@@ -68,6 +64,10 @@ socket.on('connect', () => {
 	if (document.querySelector(".game_overlay_link")) {
 		let game_id = room;
 		document.querySelector(".game_overlay_link").setAttribute('href', '/games/' + game_id + '/overlay')
+	}
+
+	if (document.querySelector(".overlay_preview")) {
+		document.querySelector(".overlay_preview iframe").setAttribute('src', '/games/' + room + '/overlay');
 	}
 
 	if (document.querySelector(".incReds")) {
@@ -147,7 +147,7 @@ const updateUI = data => {
 			let max_points_available = player.maxScore;
 			let snooker_line = player.snookersReqdScoreline;
 			let current_break = player.currBreak;
-			let current_break_portion = player.currBreak / player.snookersReqdScoreline * 100;
+			let current_break_portion = player.scoreFractionOfMax * 100;
 
 			let snooker_reqd_portion = player.snookersReqdFractionOfMax * 100;
 
@@ -158,16 +158,6 @@ const updateUI = data => {
 			bb.querySelector('.snooker_line').childNodes[0].textContent = snooker_line;
 
 			bb.querySelector('.max_available').childNodes[0].textContent = max_points_available;
-
-			if (snooker_reqd_portion == 0) {
-				bb.querySelector('.snooker_line').style.height = 'calc(' + current_break_portion + "% - 10px)";
-				bb.querySelector('.snooker_line').childNodes[0].textContent = current_break;
-				bb.querySelector('.break').style.display = 'none';
-				bb.querySelector('.snooker_line').style.backgroundColor = '#121557';
-			} else {
-				bb.querySelector('.break').style.display = 'flex';
-				bb.querySelector('.snooker_line').style.backgroundColor = '#e4791c';
-			}
 
 		}
 

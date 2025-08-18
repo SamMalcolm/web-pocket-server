@@ -226,6 +226,9 @@ class Game {
 		this.frames.push(this.currFrame);
 		this.currFrame = [];
 
+		console.log("Game Ended");
+		console.log(this.s);
+
 		if (this.s[0].score > this.s[1].score) {
 			this.s[0].framesWon++;
 		} else {
