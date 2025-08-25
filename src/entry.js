@@ -146,7 +146,7 @@ const updateUI = data => {
 
 			let max_points_available = player.maxScore;
 			let snooker_line = player.snookersReqdScoreline;
-			let current_break = player.currBreak;
+			let current_break = player.score;
 			let current_break_portion = player.scoreFractionOfMax * 100;
 
 			let snooker_reqd_portion = player.snookersReqdFractionOfMax * 100;
